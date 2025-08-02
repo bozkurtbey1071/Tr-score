@@ -39,7 +39,26 @@ module.exports = nextConfig
 ''',
 
     "pages/index.js": '''export default function Home() {
- 
+ pages_dir = os.path.join(base_dir, "pages")
+os.makedirs(pages_dir, exist_ok=True)
+project_files["pages/index.js"] = '''export default function Home() {
+  return (
+    <div style={{ textAlign: "center", marginTop: "100px" }}>
+      <h1>TRScore'e Hoş Geldiniz ⚽</h1>
+      <p>Yapay zeka destekli maç analizi platformu</p>
+    </div>
+  )
+}
+'''
+for filename, content in project_files.items():
+    path = os.path.join(base_dir, filename)
+    if "/" in filename:
+        # Alt klasör varsa ona göre dizin oluştur
+        folder = os.path.dirname(path)
+        os.makedirs(folder, exist_ok=True)
+    with open(path, "w") as f:
+        f.write(content)
+
 
 
 
