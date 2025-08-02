@@ -1,36 +1,46 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+cd trscore
+git init
+git remote add origin https://github.com/bozkurtbey1071/trscore.git
+git add .
+git commit -m "Yeni TRScore Projesi"
+git branch -M main
+git push -u origin main
+import os
+import zipfile
+base_dir = "/mnt/data/TRScore_Web"
+os.makedirs(base_dir, exist_ok=True)
+project_files = {
+    "package.json": '''{
+  "name": "trscore",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}''',
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+    "next.config.js": '''/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+}
+module.exports = nextConfig
+''',
 
-# testing
-/coverage
+    "vercel.json": '''{
+  "version": 2,
+  "builds": [{ "src": "next.config.js", "use": "@vercel/next" }]
+}
+''',
 
-# next.js
-/.next/
-/out/
+    "pages/index.js": '''export default function Home() {
+ 
 
-# production
-/build
 
-# misc
-.DS_Store
-*.pem
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# local env files
-.env*.local
-.env
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
